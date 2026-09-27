@@ -1,14 +1,14 @@
-# How Window Ninja Works
+# How Window Switcher Works
 
-This document explains how Window Ninja lists every window across all your apps and macOS Spaces. It covers the problem, why it's harder than it seems, and how the solution works.
+This document explains how Window Switcher lists windows across apps and macOS Spaces, and how its discovery and actions work.
 
 ---
 
 ## The Problem
 
-Raycast's built-in "Switch Windows" shows **one entry per app**, not per window. If you have five VS Code windows open, you only see one.
+Raycast's built-in "Switch Windows" can omit windows on other Spaces. In one comparison, it listed one of two Arc windows while Window Switcher listed both.
 
-Window Ninja solves this: it lists **every individual window** across all apps and all macOS Spaces.
+Window Switcher lists **individual windows** across apps and macOS Spaces.
 
 ---
 
@@ -55,13 +55,13 @@ macOS has several APIs for window information, and each has a limitation:
 | CGWindowListCopyWindowInfo                      |             Yes             | No titles used here | No permission for IDs/PIDs |
 | Private API `_AXUIElementCreateWithRemoteToken` | Best-effort AX acquisition  |         Yes         | Accessibility              |
 
-Apple does not document `kAXWindows` as current-Space-only. AltTab and AeroSpace both observe that it can omit windows on inactive Spaces, so Window Ninja treats the standard result as incomplete.
+Apple does not document `kAXWindows` as current-Space-only. AltTab and AeroSpace both observe that it can omit windows on inactive Spaces, so Window Switcher treats the standard result as incomplete.
 
 ---
 
 ## The Solution: Combining Multiple APIs
 
-Window Ninja uses **three techniques** together:
+Window Switcher uses **three techniques** together:
 
 1. **Standard Accessibility API** — fast, gets windows on current Space
 2. **Private API brute-force** — finds windows on other Spaces
@@ -75,7 +75,7 @@ Let's understand each step.
 
 ```mermaid
 flowchart TB
-    subgraph Raycast["Raycast Extension<br/>src/window-ninja.tsx"]
+    subgraph Raycast["Raycast Extension<br/>src/window-switcher.tsx"]
         R1[Calls Swift binary via execFile]
         R2[Parses JSON list of windows]
         R3[Applies preferences and shows searchable List UI]
@@ -141,7 +141,7 @@ The standard Accessibility API can:
 - **Query** any UI element: get its title, size, position, etc.
 - **Perform actions**: click, close, raise to front
 
-This is what Window Ninja uses to get window titles and to bring/close windows.
+This is what Window Switcher uses to get window titles and to bring/close windows.
 
 ---
 
@@ -429,7 +429,7 @@ These symbols are undocumented and have no compatibility guarantee. They work on
 
 ## TypeScript Side
 
-The Raycast extension (`src/window-ninja.tsx`) owns the UI and helper protocol:
+The Raycast extension (`src/window-switcher.tsx`) owns the UI and helper protocol:
 
 1. **Load**: Calls `win-ninja list` with a five-second process timeout.
 2. **Filter**: Applies the minimized-window preference and Raycast's native fuzzy search.

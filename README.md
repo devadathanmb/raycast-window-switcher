@@ -1,104 +1,52 @@
-# Window Ninja
+# Window Switcher
 
-A Raycast extension that lists and switches between **individual open windows** across all applications and all macOS Spaces.
+A Raycast extension for finding and switching to individual macOS windows, including windows on other Spaces and fullscreen windows.
 
-Raycast's built-in window switcher shows one entry per app. If multiple windows are open — even fullscreen on different Spaces — they are grouped together. Window Ninja lists every real window and lets you switch directly to the one you want.
+## Why use it?
 
-<img width="3024" height="1964" alt="image" src="https://github.com/user-attachments/assets/c252dd37-a01c-4d01-9d79-0cb77d4646a3" />
+Raycast's built-in **Switch Windows** can miss windows on other Spaces. I've had the same problem people have raised on r/raycastapp: [switching between windows of one app](https://www.reddit.com/r/raycastapp/comments/1i4q0nf/is_there_any_to_switch_between_different_window/) and [getting to a specific Chrome window on another desktop](https://www.reddit.com/r/raycastapp/comments/1aoyfp5/actionhotkey_for_switching_between_windows_of_the/). Window Switcher finds those windows so you can search by title and go straight to one.
 
-## Why?
+For example, with two Arc windows open, Raycast lists one; Window Switcher lists both:
 
-Coming from Linux, window switching was never a problem. Tools like [`dmenu`](https://tools.suckless.org/dmenu/) and [`rofi`](https://github.com/davatorium/rofi) let you script anything — write custom window switching scripts, fuzzy-search across windows, hook into any part of the system. Everything was accessible and scriptable.
+| Raycast's Switch Windows                                                         | Window Switcher                                                                     |
+| -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| ![Raycast lists one Arc window](./assets/screenshots/raycast-switch-windows.png) | ![Window Switcher lists both Arc windows](./assets/screenshots/window-switcher.png) |
 
-On macOS, things are more locked down. There's very limited scope for scripting without breaking something (or signing away your system's soul to bypassing security restrictions). [Raycast](https://raycast.com/) gets close to filling that gap, but its window switcher only works at the application level. Multiple browser windows, multiple VS Code windows, fullscreen windows on different Spaces — all grouped into one entry. You can't reliably switch to a specific window.
+## What it does
 
-Turns out I'm not alone in wanting this. There are many threads about it:
+- Search individual windows by title or app name, including windows on other Spaces.
+- Switch directly to a selected window, including fullscreen windows.
+- Close, minimize, restore, enter or exit fullscreen, or hide and show an app from the action menu.
+- Choose independently whether to include minimized windows and windows owned by hidden apps. By default, minimized windows are excluded and windows of hidden apps are included.
 
-- [Is there any way to switch between different windows of the same app?](https://www.reddit.com/r/raycastapp/comments/1i4q0nf/is_there_any_to_switch_between_different_window/)
-- [Action/Hotkey for switching between windows of the same app](https://www.reddit.com/r/raycastapp/comments/1aoyfp5/actionhotkey_for_switching_between_windows_of_the/)
-- [Many more on Reddit](https://www.google.com/search?q=raycast+switch+between+windows+reddit)
+## Install
 
-I ended up raising a feature request with Raycast hoping they'd implement it, but what I got was the classic "we'll look into it" reply.
-
-But then I thought — I'm a programmer myself, and I've seen [AltTab](https://github.com/lwouis/alt-tab-macos) doing exactly this. There has to be a way, right?
-
-So armed with Claude, DeepWiki, and approximately zero Swift knowledge, I decided to hack my own solution.
-
-## Demo
-
-https://github.com/user-attachments/assets/099fa2f1-58b6-40a3-a1a3-41e451118dab
-
-## Installation
-
-1. Clone the repository:
+You need macOS, Raycast, Node.js, and a Swift toolchain. Grant Raycast Accessibility permission when prompted so the extension can read and control windows.
 
 ```bash
-git clone https://github.com/devadathanmb/window-ninja
-cd window-ninja
-```
-
-2. Install dependencies:
-
-```bash
+git clone https://github.com/devadathanmb/raycast-window-ninja.git
+cd raycast-window-ninja
 npm install
-```
-
-3. Build the extension (generates a `dist/` directory containing the built extension):
-
-```bash
 npm run build
 ```
 
-4. Import into Raycast:
-   - Open Raycast
-   - Search for "Import Extension"
-   - Select the `dist` folder inside the `window-ninja` folder
+In Raycast, run **Import Extension** and select the generated `dist` folder. Open **Window Switcher**, type a window title or app name, and press Return to switch. Open the action menu for the other window controls.
 
-The extension will now be available in Raycast.
+## How it works
 
-## Usage
+The Raycast UI calls a Swift helper that combines macOS Accessibility with window and Space information. Finding windows across Spaces depends on undocumented macOS APIs, so results may change with macOS updates. [WORKING.md](./WORKING.md) covers the discovery process and its limits. The cross-Space enumeration approach draws on [AltTab](https://github.com/lwouis/alt-tab-macos).
 
-Open Raycast, type `Window Ninja`, search by window title or app name, and press Enter to switch.
-
-The extension preferences control whether the list includes minimized windows and windows belonging to hidden applications. Disable **Show Applications Without Visible Windows** to omit applications hidden with macOS's Hide Application action.
-
-## Performance
-
-This extension is blazingly fast. Below is the benchmark of the binary, done using [hyperfine](https://github.com/sharkdp/hyperfine):
-
-```
-❯ hyperfine --warmup 30 --runs 100 "./assets/win-ninja list"
-Benchmark 1: ./assets/win-ninja list
-  Time (mean ± σ):      48.4 ms ±   3.0 ms    [User: 6.9 ms, System: 9.4 ms]
-  Range (min … max):    42.0 ms …  55.7 ms    100 runs
-```
-
-Tested with 10 fullscreen windows of various applications open across Spaces.
-
-## Development
-
-To start development mode with hot reloading:
+## Develop
 
 ```bash
-npm run dev
+npm run dev          # Rebuild the Swift helper and start Raycast development mode
+npm run build        # Rebuild the helper and extension
+npm run typecheck
+npm run lint
 ```
 
-Make your changes to the TypeScript files in `src/`. The extension will automatically reload in Raycast.
-
-### Modifying the Swift Helper
-
-If you modify the Swift helper in the `win-ninja/` directory, recompile it:
-
-```bash
-npm run build:swift
-```
-
-The Raycast extension is intentionally minimal. All window discovery logic lives in the Swift helper.
-
-## Acknowledgements
-
-- [AltTab](https://github.com/lwouis/alt-tab-macos) — the cross-Space window enumeration technique and private API usage are directly based on AltTab's implementation.
+The UI is in `src/window-switcher.tsx`; discovery and window actions are in `win-ninja/Sources/WinNinja/main.swift`. Use `npm run build:swift` to rebuild the helper alone.
 
 ## License
 
-[AGPL-3.0](./LICENSE)
+[GPL-3.0-only](./LICENSE)

@@ -18,12 +18,12 @@ type ExtensionPreferences = {
 declare type Preferences = ExtensionPreferences
 
 declare namespace Preferences {
-  /** Preferences accessible in the `window-ninja` command */
-  export type WindowNinja = ExtensionPreferences & {}
+  /** Preferences accessible in the `window-switcher` command */
+  export type WindowSwitcher = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
-  /** Arguments passed to the `window-ninja` command */
-  export type WindowNinja = {}
+  /** Arguments passed to the `window-switcher` command */
+  export type WindowSwitcher = {}
 }
 

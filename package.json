@@ -1,20 +1,20 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "window-ninja",
-  "title": "Window Ninja",
-  "description": "Switch between every open window across all apps and all Spaces",
+  "name": "window-switcher",
+  "title": "Window Switcher",
+  "description": "Find and switch to individual windows across apps and macOS Spaces",
   "icon": "command-icon.png",
   "author": "devadathanmb",
   "categories": [
     "System",
     "Productivity"
   ],
-  "license": "AGPL-3.0-only",
+  "license": "GPL-3.0-only",
   "commands": [
     {
-      "name": "window-ninja",
-      "title": "Window Ninja",
-      "description": "List and switch between every open window across all apps and Spaces",
+      "name": "window-switcher",
+      "title": "Window Switcher",
+      "description": "Find and switch to individual windows across apps and macOS Spaces",
       "mode": "view"
     }
   ],

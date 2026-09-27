@@ -5,8 +5,8 @@ Window Switcher is a Raycast extension for finding and controlling individual ma
 ## Where to work
 
 - `src/window-switcher.tsx`: Raycast UI, preferences, helper calls, feedback, refresh polling.
-- `win-ninja/Sources/WinNinja/main.swift`: discovery and Accessibility actions.
-- `assets/win-ninja`: compiled helper included in the extension. The internal helper name remains `win-ninja`.
+- `window-switcher/Sources/WindowSwitcher/main.swift`: discovery and Accessibility actions.
+- `assets/window-switcher`: compiled helper included in the extension.
 - `WORKING.md`: discovery, permission, and action design. Update it when those behaviors or the helper protocol change.
 
 ## Do not break
@@ -26,6 +26,6 @@ npm run typecheck
 npm run lint
 ```
 
-For Swift changes, run `npm run build:swift` to update `assets/win-ninja`, then check `assets/win-ninja list` parses as JSON and malformed arguments fail without invoking destructive actions. For UI changes, run `npm run build` and exercise the interaction in Raycast. The pre-commit hook runs `npm run format` and `npm run lint` but not typecheck.
+For Swift changes, run `npm run build:swift` to update `assets/window-switcher`, then check `assets/window-switcher list` parses as JSON and malformed arguments fail without invoking destructive actions. For UI changes, run `npm run build` and exercise the interaction in Raycast. The pre-commit hook runs `npm run format` and `npm run lint` but not typecheck.
 
 Keep TypeScript focused on UI and protocol handling; keep macOS behavior in Swift. License: GPL-3.0-only.

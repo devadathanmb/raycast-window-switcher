@@ -35,7 +35,7 @@ interface BinaryResponse {
   error?: string;
 }
 
-const BINARY_PATH = join(environment.assetsPath, 'win-ninja');
+const BINARY_PATH = join(environment.assetsPath, 'window-switcher');
 const HELPER_TIMEOUT_MS = 5_000;
 const TRANSITION_REFRESH_DEADLINES_MS = [120, 350, 700];
 

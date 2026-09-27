@@ -1,4 +1,4 @@
 node_modules/
 dist/
 .DS_Store
-win-ninja/.build/
+window-switcher/.build/

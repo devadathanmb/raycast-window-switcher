@@ -45,7 +45,7 @@ npm run typecheck
 npm run lint
 ```
 
-The UI is in `src/window-switcher.tsx`; discovery and window actions are in `win-ninja/Sources/WinNinja/main.swift`. Use `npm run build:swift` to rebuild the helper alone.
+The UI is in `src/window-switcher.tsx`; discovery and window actions are in `window-switcher/Sources/WindowSwitcher/main.swift`. Use `npm run build:swift` to rebuild the helper alone.
 
 ## License
 

@@ -54,14 +54,14 @@
     "esbuild": "0.28.1"
   },
   "scripts": {
-    "build:swift": "cd win-ninja && swift build -c release && cp .build/release/win-ninja ../assets/win-ninja",
+    "build:swift": "cd window-switcher && swift build -c release && cp .build/release/window-switcher ../assets/window-switcher",
     "build": "npm run build:swift && ray build -o dist",
     "dev": "npm run build:swift && ray develop",
     "fix-lint": "eslint src --fix && prettier --write . && npm run format:swift",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint src && prettier --check . && swift format lint -r win-ninja/Sources/",
-    "format:swift": "swift format -i -r win-ninja/Sources/",
+    "lint": "eslint src && prettier --check . && swift format lint -r window-switcher/Sources/",
+    "format:swift": "swift format -i -r window-switcher/Sources/",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   }

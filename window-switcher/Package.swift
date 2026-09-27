@@ -2,20 +2,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "WinNinja",
+    name: "WindowSwitcher",
     platforms: [
         .macOS(.v10_15)
     ],
     products: [
         .executable(
-            name: "win-ninja",
-            targets: ["WinNinja"]
+            name: "window-switcher",
+            targets: ["WindowSwitcher"]
         )
     ],
     targets: [
         .executableTarget(
-            name: "WinNinja",
-            path: "Sources/WinNinja"
+            name: "WindowSwitcher",
+            path: "Sources/WindowSwitcher"
         )
     ]
 )

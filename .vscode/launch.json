@@ -4,21 +4,21 @@
       "type": "swift",
       "request": "launch",
       "args": [],
-      "cwd": "${workspaceFolder:raycast-switch-windows}/win-ninja",
-      "name": "Debug win-ninja (win-ninja)",
-      "target": "win-ninja",
+      "cwd": "${workspaceFolder}/window-switcher",
+      "name": "Debug window-switcher (window-switcher)",
+      "target": "window-switcher",
       "configuration": "debug",
-      "preLaunchTask": "swift: Build Debug win-ninja (win-ninja)"
+      "preLaunchTask": "swift: Build Debug window-switcher (window-switcher)"
     },
     {
       "type": "swift",
       "request": "launch",
       "args": [],
-      "cwd": "${workspaceFolder:raycast-switch-windows}/win-ninja",
-      "name": "Release win-ninja (win-ninja)",
-      "target": "win-ninja",
+      "cwd": "${workspaceFolder}/window-switcher",
+      "name": "Release window-switcher (window-switcher)",
+      "target": "window-switcher",
       "configuration": "release",
-      "preLaunchTask": "swift: Build Release win-ninja (win-ninja)"
+      "preLaunchTask": "swift: Build Release window-switcher (window-switcher)"
     }
   ]
 }

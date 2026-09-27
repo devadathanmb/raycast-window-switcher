@@ -441,7 +441,7 @@ func showApplication(pid: pid_t) -> ActionResponse {
 
 func printHelp() {
     let help = """
-        Usage: win-ninja <command> [arguments]
+        Usage: window-switcher <command> [arguments]
 
         Commands:
           list                            Output JSON for all open windows
@@ -465,7 +465,7 @@ func parsePidAndWindowId(command: String) -> (pid: pid_t, windowId: CGWindowID) 
         let windowId = UInt32(arguments[3]),
         windowId != kCGNullWindowID
     else {
-        printJSON(ActionResponse.failed("Usage: win-ninja \(command) <pid> <window-id>"))
+        printJSON(ActionResponse.failed("Usage: window-switcher \(command) <pid> <window-id>"))
         exit(2)
     }
     return (pid, windowId)
@@ -477,7 +477,7 @@ func parsePid(command: String) -> pid_t {
         let pid = Int32(arguments[2]),
         pid > 0
     else {
-        printJSON(ActionResponse.failed("Usage: win-ninja \(command) <pid>"))
+        printJSON(ActionResponse.failed("Usage: window-switcher \(command) <pid>"))
         exit(2)
     }
     return pid

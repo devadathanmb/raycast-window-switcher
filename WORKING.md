@@ -82,7 +82,7 @@ flowchart TB
         R4[Handles click → calls focus/close/minimize/etc.]
     end
 
-    subgraph Swift["Swift Helper Binary<br/>win-ninja/Sources/WinNinja/main.swift"]
+    subgraph Swift["Swift Helper Binary<br/>window-switcher/Sources/WindowSwitcher/main.swift"]
         S1[cgWindowScan]
         S2[axWindows]
         S3[windowsByBruteForce]
@@ -431,7 +431,7 @@ These symbols are undocumented and have no compatibility guarantee. They work on
 
 The Raycast extension (`src/window-switcher.tsx`) owns the UI and helper protocol:
 
-1. **Load**: Calls `win-ninja list` with a five-second process timeout.
+1. **Load**: Calls `window-switcher list` with a five-second process timeout.
 2. **Filter**: Applies the minimized-window preference and Raycast's native fuzzy search.
 3. **Render**: Keys items by PID and WID.
 4. **Act**: Sends PID and WID for window actions, parses one JSON response, and keeps the List open on failure.

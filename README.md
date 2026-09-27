@@ -24,8 +24,8 @@ For example, with two Arc windows open, Raycast lists one; Window Switcher lists
 You need macOS, Raycast, Node.js, and a Swift toolchain. Grant Raycast Accessibility permission when prompted so the extension can read and control windows.
 
 ```bash
-git clone https://github.com/devadathanmb/raycast-window-ninja.git
-cd raycast-window-ninja
+git clone https://github.com/devadathanmb/raycast-window-switcher.git
+cd raycast-window-switcher
 npm install
 npm run build
 ```
